@@ -8,18 +8,19 @@ import Icon from "./ui/Icon";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
 import * as SplashScreen from "expo-splash-screen";
+import { init } from "./util/database";
+import { useCallback, useEffect, useState } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
 
-  // code from Expo using SplashScreen:
   useEffect(() => {
     const prepare = async () => {
       try {
         await SplashScreen.preventAutoHideAsync();
-        init();
+        await init();
       } catch (e) {
         console.warn(e);
       } finally {
@@ -35,7 +36,9 @@ export default function App() {
     }
   }, [dbInitialized]);
 
-  if (!dbInitialized) return null;
+  if (!dbInitialized) {
+    return null;
+  }
 
   return (
     <>
