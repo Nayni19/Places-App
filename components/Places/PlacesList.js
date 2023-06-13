@@ -15,6 +15,7 @@ function PlacesList({ places }) {
 
   return (
     <FlatList
+      style={styles.list}
       data={places}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PlacesItem place={item} />}
@@ -25,6 +26,9 @@ function PlacesList({ places }) {
 export default PlacesList;
 
 const styles = StyleSheet.create({
+  list: {
+    margin: 24,
+  },
   fallBackContainer: {
     justifyContent: "center",
     flex: 1,
@@ -32,6 +36,6 @@ const styles = StyleSheet.create({
   },
   fallBackText: {
     fontSize: 16,
-    color: Colors.primary100
+    color: Colors.primary100,
   },
 });

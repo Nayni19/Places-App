@@ -8,7 +8,7 @@ import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/colors";
 import CustomButton from "../../ui/CustomButton";
 
-function ImagePicker() {
+function ImagePicker({ onImagePick }) {
   const [imagePicked, setImagePicked] = useState();
   const [statusInfo, requestPermission] = useCameraPermissions();
 
@@ -41,6 +41,7 @@ function ImagePicker() {
       quality: 0.5,
     });
     setImagePicked(result.assets[0].uri);
+    onImagePick(result.assets[0].uri);
   }
 
   let image = <Text>No Image Captured! </Text>;
