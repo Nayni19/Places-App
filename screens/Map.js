@@ -3,17 +3,25 @@ import { Alert, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Icon from "../ui/Icon";
 
-function Map({ navigation }) {
-  const [selectedLocation, setSelectedLocation] = useState();
+function Map({ navigation, route }) {
+  const initialLocation = route.params && {
+    lat: route.params.initialLat,
+    lng: route.params.initialLng,
+  };
+
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation);
 
   const region = {
-    latitude: 19.075983,
-    longitude: 72.877655,
+    latitude: initialLocation ? initialLocation.lat : 19.075983,
+    longitude: initialLocation ? initialLocation.lng : 72.877655,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
 
   function selectLocationHandler(event) {
+    if (initialLocation) {
+      return;
+    }
     const lat = event.nativeEvent.coordinate.latitude;
     const lng = event.nativeEvent.coordinate.longitude;
 
@@ -33,12 +41,15 @@ function Map({ navigation }) {
   }, [navigation, selectedLocation]);
 
   useLayoutEffect(() => {
+    if (initialLocation) {
+      return;
+    }
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <Icon name="save" size={24} color={tintColor} onPress={saveLocation} />
       ),
     });
-  }, [navigation, saveLocation]);
+  }, [navigation, saveLocation, initialLocation]);
 
   return (
     <MapView
