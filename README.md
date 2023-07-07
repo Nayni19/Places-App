@@ -1,4 +1,4 @@
-# PlacesApp
+# Places Application using React Native
 
 The Places app developed using React Native is a mobile application designed to help users discover, organize, and remember their favorite locations. Built with the React Native framework, the app offers a cross-platform solution, allowing it to run on both iOS and Android devices while sharing a significant portion of the codebase.
 
